@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Https,">
+  <meta name="keywords" content="缓存,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="思考1：Https通信机制前言之前一直对Https方面的知识似懂非懂，这两天抽空进行了一次较深入的学习，为了加深巩固，特意总结出一些问题，已验证是否真正理解，文中如有错误，欢迎指正~ 问题1.Http有哪些缺点？ 通信使用明文传输，不加密，可能被监听 无法验证通信方的身份（Http不具备验证机制），可能伪造 内容完整性无法保证，可能被篡改  2.如何解决明文传输问题？加密，对通信加密（TLS）、对">
-<meta name="keywords" content="Https">
+<meta name="description" content="理解浏览器缓存1.浏览器缓存的作用浏览器缓存通俗讲就是本地保存一份资源的副本，当浏览器再次请求这个资源时，如果发现本地的副本尚未过期，那么请求就无需发向服务器，资源从本地获取。亦或者本地的副本已过期（即超过当初指定的过期时间），那么浏览器会在请求中国携带与资源相关的信息（最后修改时间、资源摘要等）发向服务器，如果这时服务器发现这个副本只是超过了当时指定的过期时间，并没有真正过期（服务器远器资源没有">
+<meta name="keywords" content="缓存">
 <meta property="og:type" content="article">
-<meta property="og:title" content="思考1：Https通信机制">
-<meta property="og:url" content="http://blog.guoyunfeng.com/2019/08/22/https/index.html">
-<meta property="og:site_name" content="Guo的前端思考">
-<meta property="og:description" content="思考1：Https通信机制前言之前一直对Https方面的知识似懂非懂，这两天抽空进行了一次较深入的学习，为了加深巩固，特意总结出一些问题，已验证是否真正理解，文中如有错误，欢迎指正~ 问题1.Http有哪些缺点？ 通信使用明文传输，不加密，可能被监听 无法验证通信方的身份（Http不具备验证机制），可能伪造 内容完整性无法保证，可能被篡改  2.如何解决明文传输问题？加密，对通信加密（TLS）、对">
+<meta property="og:title" content="理解浏览器缓存">
+<meta property="og:url" content="http://blog.guoyunfeng.com/2019/08/23/understand-browser-cache/index.html">
+<meta property="og:site_name" content="What should I know?">
+<meta property="og:description" content="理解浏览器缓存1.浏览器缓存的作用浏览器缓存通俗讲就是本地保存一份资源的副本，当浏览器再次请求这个资源时，如果发现本地的副本尚未过期，那么请求就无需发向服务器，资源从本地获取。亦或者本地的副本已过期（即超过当初指定的过期时间），那么浏览器会在请求中国携带与资源相关的信息（最后修改时间、资源摘要等）发向服务器，如果这时服务器发现这个副本只是超过了当时指定的过期时间，并没有真正过期（服务器远器资源没有">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-23T02:42:49.810Z">
+<meta property="og:updated_time" content="2019-09-04T12:16:13.695Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="思考1：Https通信机制">
-<meta name="twitter:description" content="思考1：Https通信机制前言之前一直对Https方面的知识似懂非懂，这两天抽空进行了一次较深入的学习，为了加深巩固，特意总结出一些问题，已验证是否真正理解，文中如有错误，欢迎指正~ 问题1.Http有哪些缺点？ 通信使用明文传输，不加密，可能被监听 无法验证通信方的身份（Http不具备验证机制），可能伪造 内容完整性无法保证，可能被篡改  2.如何解决明文传输问题？加密，对通信加密（TLS）、对">
+<meta name="twitter:title" content="理解浏览器缓存">
+<meta name="twitter:description" content="理解浏览器缓存1.浏览器缓存的作用浏览器缓存通俗讲就是本地保存一份资源的副本，当浏览器再次请求这个资源时，如果发现本地的副本尚未过期，那么请求就无需发向服务器，资源从本地获取。亦或者本地的副本已过期（即超过当初指定的过期时间），那么浏览器会在请求中国携带与资源相关的信息（最后修改时间、资源摘要等）发向服务器，如果这时服务器发现这个副本只是超过了当时指定的过期时间，并没有真正过期（服务器远器资源没有">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.guoyunfeng.com/2019/08/22/https/">
+  <link rel="canonical" href="http://blog.guoyunfeng.com/2019/08/23/understand-browser-cache/">
 
 
 
 
 
-  <title>思考1：Https通信机制 | Guo的前端思考</title>
+  <title>理解浏览器缓存 | What should I know?</title>
   
 
 
@@ -166,7 +166,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Guo的前端思考</span>
+        <span class="site-title">What should I know?</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.guoyunfeng.com/2019/08/22/https/">
+    <link itemprop="mainEntityOfPage" href="http://blog.guoyunfeng.com/2019/08/23/understand-browser-cache/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Guo YunFeng">
@@ -262,7 +262,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Guo的前端思考">
+      <meta itemprop="name" content="What should I know?">
     </span>
 
     
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">思考1：Https通信机制</h1>
+          <h1 class="post-title" itemprop="name headline">理解浏览器缓存</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T17:31:53+08:00">
-                2019-08-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-23T10:40:29+08:00">
+                2019-08-23
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机网络</span>
+                  <a href="/categories/浏览器/" itemprop="url" rel="index">
+                    <span itemprop="name">浏览器</span>
                   </a>
                 </span>
 
@@ -324,8 +324,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2019/08/22/https/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2019/08/22/https/" itemprop="commentsCount"></span>
+                <a href="/2019/08/23/understand-browser-cache/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2019/08/23/understand-browser-cache/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -358,42 +358,39 @@
       
 
       
-        <h1 id="思考1：Https通信机制"><a href="#思考1：Https通信机制" class="headerlink" title="思考1：Https通信机制"></a>思考1：Https通信机制</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前一直对Https方面的知识似懂非懂，这两天抽空进行了一次较深入的学习，为了加深巩固，特意总结出一些问题，已验证是否真正理解，文中如有错误，欢迎指正~</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="1-Http有哪些缺点？"><a href="#1-Http有哪些缺点？" class="headerlink" title="1.Http有哪些缺点？"></a>1.Http有哪些缺点？</h3><ol>
-<li>通信使用明文传输，不加密，可能被监听</li>
-<li>无法验证通信方的身份（Http不具备验证机制），可能伪造</li>
-<li>内容完整性无法保证，可能被篡改</li>
+        <h1 id="理解浏览器缓存"><a href="#理解浏览器缓存" class="headerlink" title="理解浏览器缓存"></a>理解浏览器缓存</h1><h3 id="1-浏览器缓存的作用"><a href="#1-浏览器缓存的作用" class="headerlink" title="1.浏览器缓存的作用"></a>1.浏览器缓存的作用</h3><p>浏览器缓存通俗讲就是本地保存一份资源的副本，当浏览器再次请求这个资源时，如果发现本地的副本尚未过期，那么请求就无需发向服务器，资源从本地获取。亦或者本地的副本已过期（即超过当初指定的过期时间），那么浏览器会在请求中国携带与资源相关的信息（最后修改时间、资源摘要等）发向服务器，如果这时服务器发现这个副本只是超过了当时指定的过期时间，并没有真正过期（服务器远器资源没有更新），那么服务器就会返回304状态码，并且响应体中不携带资源文件，浏览器继续使用本地的资源副本；但如果服务器发现这个副本真的过期了（也就是远器有更新），那么服务器就会返回200状态码，并且在响应体中携带资源文件，浏览器用最新的文件更新本地副本</p>
+<h3 id="2-浏览器缓存有哪些优点"><a href="#2-浏览器缓存有哪些优点" class="headerlink" title="2.浏览器缓存有哪些优点"></a>2.浏览器缓存有哪些优点</h3><ol>
+<li>减少了网络请求次数（本地副本未过期，可以使用，请求不用发至服务器）</li>
+<li>降低了服务器负载（请求次数减少了，服务器负载自然也就降低了）</li>
+<li>缩短了资源响应时长（从本地获取资源要比从网络获取速度快得多）</li>
+<li>降低了网络带宽（即便协商缓存是一次完整的请求响应，但响应体中可能不包含资源文件，进而响应的体积缩小，带宽降低）</li>
 </ol>
-<h3 id="2-如何解决明文传输问题？"><a href="#2-如何解决明文传输问题？" class="headerlink" title="2.如何解决明文传输问题？"></a>2.如何解决明文传输问题？</h3><p>加密，对通信加密（TLS）、对内容加密（SSL）</p>
-<h3 id="3-如何验证通信方身份？"><a href="#3-如何验证通信方身份？" class="headerlink" title="3.如何验证通信方身份？"></a>3.如何验证通信方身份？</h3><p>采用认证机制，通过验证通信方的证书来确认身份，证书由可信任的第三方数字证书机构签发</p>
-<h3 id="4-如何保证内容完整性？"><a href="#4-如何保证内容完整性？" class="headerlink" title="4.如何保证内容完整性？"></a>4.如何保证内容完整性？</h3><p>通信和内容得到了加密，并且加密所用的密钥是安全不泄露的，那么就能保证内容的完整性，因为其他人无法解密</p>
-<h3 id="5-内容加密都有哪些加密方式？"><a href="#5-内容加密都有哪些加密方式？" class="headerlink" title="5.内容加密都有哪些加密方式？"></a>5.内容加密都有哪些加密方式？</h3><ol>
-<li>共享密钥加密，又称<em>对称密钥加密</em>，加解密使用同一个密钥，并且密钥采用明文方式跟随内容传输，所以很容易被中间人获取，从而破解内容，安全性较低，但是处理速度快，效率高</li>
-<li>公开密钥加密，又称<em>非对称密钥加密</em>，一对密钥（公钥&amp;私钥），使用私钥加密的内容，只有公钥才能解密，反之亦然；公钥可以给任何人，私钥由服务端自己保存好；虽然安全性较高，但处理速度慢，效率低，而且公钥使用明文传输，容易被中间人获取并篡改，也就是所谓的<em>”中间人攻击“</em>。</li>
+<h3 id="3-浏览器缓存有哪些缺点"><a href="#3-浏览器缓存有哪些缺点" class="headerlink" title="3.浏览器缓存有哪些缺点"></a>3.浏览器缓存有哪些缺点</h3><ol>
+<li>如果资源使用了强缓存，当远端的资源发生了更新时，则需要用户通过强制刷新浏览器的方式来获取最新资源；否则在本地副本过期之前，浏览器总会从缓存中拿这个资源，从而产生资源更新不及时的问题</li>
+<li>当浏览器渲染一个页面时，浏览器会把所有该页面存在硬盘中的缓存文件放入内存中，目的是为了当tab页刷新时，资源请求能够快速响应，毕竟memory cache与disk cache相比，优先级更高，读取速度更快，但这样会带来内存消耗的问题</li>
 </ol>
-<h3 id="6-Https采用哪种加密方式？"><a href="#6-Https采用哪种加密方式？" class="headerlink" title="6.Https采用哪种加密方式？"></a>6.Https采用哪种加密方式？</h3><p>混合加密方式：先使用公开密钥加密方式来传递公钥，公钥加密生成密钥，然后再使用这个密钥以共享密钥加密的方式进行后续的内容传输。那么这种所谓的混合加密方式安全吗？答案是：<em>不安全</em>，容易遭到中间人攻击。</p>
-<h3 id="7-何为中间人攻击？"><a href="#7-何为中间人攻击？" class="headerlink" title="7.何为中间人攻击？"></a>7.何为中间人攻击？</h3><p>中间人攻击，即客户端与服务端通信时，中间的代理服务器、运营商、网关等都有可能对通信进行监听、拦截和篡改，具体过程大致如下：</p>
-<ol>
-<li>客户端向服务端发起建立安全通信的请求</li>
-<li>服务端将公钥以<em>明文方式</em>发送给客户端</li>
-<li>中间人将公钥保存下来，并生成一个假的公钥给客户端</li>
-<li>客户端使用假的公钥生成随机数发送给服务端</li>
-<li>中间人使用假的公钥解密得到随机数，然后再生成一个假的随机数，并使用那个真的服务端公钥加密，然后发送给服务端，使用真的公钥加密假的随机数目的是确保服务端能够用私钥解密，否则服务端会解密失败</li>
-<li>服务端使用私钥解密得到随机数，并用这个随机数推导出密钥，推到方式是公开的，也就是说只要有了随机数也就有了密钥，那么此时除了客户端、服务端有这个随机数，中间人也有，所以在后续的通信中，中间人就可以拿这个密钥解密数据包，从而篡改内容</li>
-</ol>
-<p>概括起来就是：<em>中间人用假公钥替换了服务端发送给客户端的真公钥，导致客户端使用假的公钥加密随机数并发给服务端，中间人从中解密得到随机数，这样就能推导出后续加密数据包所用到的密钥，之后客户端与服务端的通信就再无秘密可言</em></p>
-<h3 id="8-如何防止中间人攻击？"><a href="#8-如何防止中间人攻击？" class="headerlink" title="8.如何防止中间人攻击？"></a>8.如何防止中间人攻击？</h3><p>其实只要在服务端发送公钥这个阶段，公钥不被中间人获取篡改，那么问题就解决了，所以如何才能保证公钥不被中间人获取呢，方法就是<em>用数字证书对公钥进行加密</em></p>
-<h3 id="9-证书如何加密公钥？以及如何证明证书不是伪造的？"><a href="#9-证书如何加密公钥？以及如何证明证书不是伪造的？" class="headerlink" title="9.证书如何加密公钥？以及如何证明证书不是伪造的？"></a>9.证书如何加密公钥？以及如何证明证书不是伪造的？</h3><p>首先，颁发数字证书的是可信任的第三方机构（简称CA），这是前提；服务端获得的证书包含服务端自己的公钥，并且是用CA的私钥加密过的，这个证书只能由CA的公钥进行解密验证。</p>
-<p>目前市场上的浏览器都会事先内置一些CA的公钥，目的就是避免公钥在传输过程中泄露，所以与其就不传输，直接内置</p>
-<p>当浏览器接收到服务端的证书时，先进行验证，而不是直接使用；浏览器使用CA的公钥验证证书是否有效，如果验证通过，就证明证书中的公钥也是真实有效的，然后就可以使用这个公钥了；在这个过程中，中间人无法解密（因为CA的公钥是内置在浏览器中的，并没有在通信中携带），也就无法得到公钥，进而即使生成假公钥也是多余的，因为即使生成了，给到客户端也是验证不通过的</p>
-<h3 id="10-还有哪些要补充的？"><a href="#10-还有哪些要补充的？" class="headerlink" title="10.还有哪些要补充的？"></a>10.还有哪些要补充的？</h3><ol>
-<li>服务端也可以要求验证客户端的证书，但是客户端要想得到证书，需要付费购买，并且要求每个用户都安装，这是不现实的，存在学习成本</li>
-<li>生成<em>共享密钥加密方式<em>使用的</em>密钥<em>时，无论是采用</em>DH<em>算法，还是</em>RSA<em>算法，目的都只有一个，那就是</em>生成复杂的安全性高的密钥</em></li>
-</ol>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li>《图解Http》第7章：确保Web安全的Https</li>
-<li><a href="https://www.zhihu.com/question/65464646" target="_blank" rel="noopener">HTTPS可以防止中间人篡改内容吗？ - 知乎</a></li>
-</ol>
+<h3 id="4-强缓存机制"><a href="#4-强缓存机制" class="headerlink" title="4.强缓存机制"></a>4.强缓存机制</h3><ul>
+<li>如果给某个资源指定过期时间，从浏览器缓存这个资源后，一直到这个资源过期之前，浏览器针对这个资源的请求使用的都是强缓存机制</li>
+<li>Expires、Cache-Control这两个Header字段用于告知浏览器缓存何时过期</li>
+<li>Expires是Http 1.0的Header，Cache-Control是Http 1.1的Header</li>
+<li>Expires的值是一个绝对时间，Cache-Control的值是一个时间长度(秒)，例如：max-age: 3600000</li>
+<li>两者同时存在时，Cache-Control的优先级大于Expires</li>
+<li>Cache-Control的值除了一个时间长度，还可能有一个缓存权限，它的值有这几种：public、private、no-cache、no-store</li>
+<li>public表示响应链中的任何一方都可以缓存这个资源，包括：浏览器、代理服务器、缓存服务器等</li>
+<li>private表示只有浏览器可以缓存这个资源，其他方不可以</li>
+<li>no-cache表示任何方都可以缓存这个资源，但是缓存后立即过期，即任何方在使用缓存时需要与服务器确认</li>
+<li>no-store表示任何方不得缓存这个资源，包括浏览器</li>
+</ul>
+<h3 id="5-协商缓存机制"><a href="#5-协商缓存机制" class="headerlink" title="5.协商缓存机制"></a>5.协商缓存机制</h3><ul>
+<li>浏览器携带着资源的相关信息去与服务器进行确认，如果资源未过期则浏览器使用本地的资源副本，否则服务器会返回最新资源，浏览器用其更新本地副本</li>
+<li>服务器如果想对某个资源使用协商缓存机制，那么就会在响应头中添加Last-Modified或Etag字段，或者两者同时存在</li>
+<li>Last-Modified是资源的最后修改时间，精确到秒级</li>
+<li>Etag是资源的MD5摘要，资源只要被修改过，Etag就会改变</li>
+<li>浏览器会将这两个字段的值记录下来，并且会在下次请求时在请求头中带上这两个字段</li>
+<li>服务器根据这两个Header字段判断浏览器本地的资源副本是否已过期，未过期则返回304，并且不携带资源文件；否则返回200，并携带资源文件</li>
+<li>Etag在某些场景要比Last-Modified更精确，例如：如果资源在一秒内被修改多次，那么Last-Modified是不会更新的，因为它只能精确到秒，而Etag是只要资源被修改过，它就会更新</li>
+</ul>
+<p>未完待续…</p>
 
       
     </div>
@@ -411,7 +408,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Https/" rel="tag"># Https</a>
+            <a href="/tags/缓存/" rel="tag"># 缓存</a>
           
         </div>
       
@@ -424,8 +421,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/15/full-screen/" rel="next" title="浏览器全屏模式">
-                <i class="fa fa-chevron-left"></i> 浏览器全屏模式
+              <a href="/2019/08/22/understand-https/" rel="next" title="理解Https通信机制">
+                <i class="fa fa-chevron-left"></i> 理解Https通信机制
               </a>
             
           </div>
@@ -434,8 +431,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/23/cache/" rel="prev" title="思考2：浏览器缓存">
-                思考2：浏览器缓存 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/02/understand-sort/" rel="prev" title="理解几种常见的排序算法">
+                理解几种常见的排序算法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -520,7 +517,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -531,7 +528,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -542,7 +539,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -591,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#思考1：Https通信机制"><span class="nav-number">1.</span> <span class="nav-text">思考1：Https通信机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.2.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Http有哪些缺点？"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.Http有哪些缺点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-如何解决明文传输问题？"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.如何解决明文传输问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-如何验证通信方身份？"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.如何验证通信方身份？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-如何保证内容完整性？"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.如何保证内容完整性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-内容加密都有哪些加密方式？"><span class="nav-number">1.2.5.</span> <span class="nav-text">5.内容加密都有哪些加密方式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Https采用哪种加密方式？"><span class="nav-number">1.2.6.</span> <span class="nav-text">6.Https采用哪种加密方式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-何为中间人攻击？"><span class="nav-number">1.2.7.</span> <span class="nav-text">7.何为中间人攻击？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-如何防止中间人攻击？"><span class="nav-number">1.2.8.</span> <span class="nav-text">8.如何防止中间人攻击？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-证书如何加密公钥？以及如何证明证书不是伪造的？"><span class="nav-number">1.2.9.</span> <span class="nav-text">9.证书如何加密公钥？以及如何证明证书不是伪造的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-还有哪些要补充的？"><span class="nav-number">1.2.10.</span> <span class="nav-text">10.还有哪些要补充的？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理解浏览器缓存"><span class="nav-number">1.</span> <span class="nav-text">理解浏览器缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-浏览器缓存的作用"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.浏览器缓存的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-浏览器缓存有哪些优点"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.浏览器缓存有哪些优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-浏览器缓存有哪些缺点"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.浏览器缓存有哪些缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-强缓存机制"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.强缓存机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-协商缓存机制"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.协商缓存机制</span></a></li></ol></li></ol></div>
             
 
           </div>
