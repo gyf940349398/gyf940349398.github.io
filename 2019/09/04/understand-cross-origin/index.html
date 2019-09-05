@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="敬请期待…">
+<meta name="description" content="1.何为跨域？两个url的协议、域名、端口，只要有任意一个不同就属于跨域 2.跨域有哪些限制？ Ajax请求不能发送 Dom无法获取 Cookie无法读取  3.为什么要有跨域限制？ 如果跨域的请求可以发送，那么任意一方都可以请求某个服务器的资源，这样用户数据就可能会被窃取，或者被滥用误用，从而产生安全问题 如果一个页面可以获取到另一个页面的Dom，那么页面内容就可能会被篡改，或者页面中的数据和该">
 <meta name="keywords" content="跨域">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解几种常见跨域方式原理">
 <meta property="og:url" content="http://blog.guoyunfeng.com/2019/09/04/understand-cross-origin/index.html">
 <meta property="og:site_name" content="What should I know?">
-<meta property="og:description" content="敬请期待…">
+<meta property="og:description" content="1.何为跨域？两个url的协议、域名、端口，只要有任意一个不同就属于跨域 2.跨域有哪些限制？ Ajax请求不能发送 Dom无法获取 Cookie无法读取  3.为什么要有跨域限制？ 如果跨域的请求可以发送，那么任意一方都可以请求某个服务器的资源，这样用户数据就可能会被窃取，或者被滥用误用，从而产生安全问题 如果一个页面可以获取到另一个页面的Dom，那么页面内容就可能会被篡改，或者页面中的数据和该">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-05T07:22:08.745Z">
+<meta property="og:updated_time" content="2019-09-05T12:15:10.865Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解几种常见跨域方式原理">
-<meta name="twitter:description" content="敬请期待…">
+<meta name="twitter:description" content="1.何为跨域？两个url的协议、域名、端口，只要有任意一个不同就属于跨域 2.跨域有哪些限制？ Ajax请求不能发送 Dom无法获取 Cookie无法读取  3.为什么要有跨域限制？ 如果跨域的请求可以发送，那么任意一方都可以请求某个服务器的资源，这样用户数据就可能会被窃取，或者被滥用误用，从而产生安全问题 如果一个页面可以获取到另一个页面的Dom，那么页面内容就可能会被篡改，或者页面中的数据和该">
 
 
 
@@ -358,7 +358,46 @@
       
 
       
-        <p>敬请期待…</p>
+        <h3 id="1-何为跨域？"><a href="#1-何为跨域？" class="headerlink" title="1.何为跨域？"></a>1.何为跨域？</h3><p>两个url的协议、域名、端口，只要有任意一个不同就属于跨域</p>
+<h3 id="2-跨域有哪些限制？"><a href="#2-跨域有哪些限制？" class="headerlink" title="2.跨域有哪些限制？"></a>2.跨域有哪些限制？</h3><ol>
+<li>Ajax请求不能发送</li>
+<li>Dom无法获取</li>
+<li>Cookie无法读取</li>
+</ol>
+<h3 id="3-为什么要有跨域限制？"><a href="#3-为什么要有跨域限制？" class="headerlink" title="3.为什么要有跨域限制？"></a>3.为什么要有跨域限制？</h3><ol>
+<li>如果跨域的请求可以发送，那么任意一方都可以请求某个服务器的资源，这样用户数据就可能会被窃取，或者被滥用误用，从而产生安全问题</li>
+<li>如果一个页面可以获取到另一个页面的Dom，那么页面内容就可能会被篡改，或者页面中的数据和该域名下的cookie被窃取</li>
+<li>如果Cookie可以被随意读取，那么cookie中的用户数据（一般包括登录信息）就会泄露，也会产生安全问题</li>
+</ol>
+<p>总而言之就是出于安全考虑</p>
+<h3 id="4-跨域限制是否可以绕过？"><a href="#4-跨域限制是否可以绕过？" class="headerlink" title="4.跨域限制是否可以绕过？"></a>4.跨域限制是否可以绕过？</h3><p>答案是：可以，而且有以下几种方式：</p>
+<h4 id="（1）通过将document-domain设置为主域名来解决跨域问题"><a href="#（1）通过将document-domain设置为主域名来解决跨域问题" class="headerlink" title="（1）通过将document.domain设置为主域名来解决跨域问题"></a>（1）通过将<code>document.domain</code>设置为主域名来解决跨域问题</h4><p>此方式适用于因子域名不同而产生的跨域，子域名页面要想使用保存在主域名下的cookie，就需要将自身的domain设成主域名，只有这样浏览器才允许子域访问主域的cookie；或者窗口与窗口之间因子域名不同，而无法获取对方Dom的问题（<code>iframe窗口与父窗口</code>、<code>window.open打开的子窗口与主窗口</code>），也可以通过这种方式解决</p>
+<h4 id="（2）通过location-hash与onhashchange事件来传递数据"><a href="#（2）通过location-hash与onhashchange事件来传递数据" class="headerlink" title="（2）通过location.hash与onhashchange事件来传递数据"></a>（2）通过location.hash与onhashchange事件来传递数据</h4><p>此方式同样适用于<code>iframe窗口与父窗口</code>、<code>window.open打开的子窗口与主窗口</code>跨域问题，因为它利用了web以下几个特性：</p>
+<ul>
+<li>改变hash页面不会刷新</li>
+<li>iframe跨域虽然不能获取Dom，但location对象可以获取到</li>
+<li>窗口的hash被改变时，可以通过onhashchange事件得到通知</li>
+</ul>
+<p>具体实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 父窗口</span></span><br><span class="line"><span class="keyword">var</span> src = originURL + <span class="string">'#'</span> + data;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'myIFrame'</span>).src = src;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// iframe窗口</span></span><br><span class="line"><span class="built_in">window</span>.onhashchange = checkMessage;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkMessage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> message = <span class="built_in">window</span>.location.hash;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）通过window-name传递数据"><a href="#（3）通过window-name传递数据" class="headerlink" title="（3）通过window.name传递数据"></a>（3）通过window.name传递数据</h4><p>此方式适用于<code>iframe窗口与父窗口</code>跨域问题，原理是：如果iframe窗口与父窗口存在跨域，那么window.name是不可以取到的，但是如果不存在跨域，就可以取到；并且如果iframe中前一个页面设置了window.name，然后加载另一个页面后，window.name依然存在，具体方式如下：</p>
+<ol>
+<li><p>父窗口先打开一个子窗口，载入一个不同源的网页，该网页将信息写入window.name属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.name = data;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接着，子窗口跳回一个与主窗口同域的网址。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location = <span class="string">'http://parent.url.com/xxx.html'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，主窗口就可以读取子窗口的window.name了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = <span class="built_in">document</span>.getElementById(<span class="string">'myFrame'</span>).contentWindow.name;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>优点：window.name容量大，可以存较大的字符串<br>缺点：需要监听window.name的变化</p>
+<h4 id="（4）window-postMessage"><a href="#（4）window-postMessage" class="headerlink" title="（4）window.postMessage"></a>（4）window.postMessage</h4><h4 id="（5）JSONP"><a href="#（5）JSONP" class="headerlink" title="（5）JSONP"></a>（5）JSONP</h4><h4 id="（6）Websocket"><a href="#（6）Websocket" class="headerlink" title="（6）Websocket"></a>（6）Websocket</h4><h4 id="（7）CORS"><a href="#（7）CORS" class="headerlink" title="（7）CORS"></a>（7）CORS</h4><p>未完待续…</p>
 
       
     </div>
@@ -458,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -537,6 +585,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-何为跨域？"><span class="nav-number">1.</span> <span class="nav-text">1.何为跨域？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-跨域有哪些限制？"><span class="nav-number">2.</span> <span class="nav-text">2.跨域有哪些限制？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-为什么要有跨域限制？"><span class="nav-number">3.</span> <span class="nav-text">3.为什么要有跨域限制？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-跨域限制是否可以绕过？"><span class="nav-number">4.</span> <span class="nav-text">4.跨域限制是否可以绕过？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）通过将document-domain设置为主域名来解决跨域问题"><span class="nav-number">4.1.</span> <span class="nav-text">（1）通过将document.domain设置为主域名来解决跨域问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）通过location-hash与onhashchange事件来传递数据"><span class="nav-number">4.2.</span> <span class="nav-text">（2）通过location.hash与onhashchange事件来传递数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）通过window-name传递数据"><span class="nav-number">4.3.</span> <span class="nav-text">（3）通过window.name传递数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）window-postMessage"><span class="nav-number">4.4.</span> <span class="nav-text">（4）window.postMessage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（5）JSONP"><span class="nav-number">4.5.</span> <span class="nav-text">（5）JSONP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（6）Websocket"><span class="nav-number">4.6.</span> <span class="nav-text">（6）Websocket</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（7）CORS"><span class="nav-number">4.7.</span> <span class="nav-text">（7）CORS</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
