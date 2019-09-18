@@ -356,9 +356,10 @@
       
         
           
-          敬请期待…
-
-          
+          防抖概念相邻的两次函数执行间隔不得小于n秒，否则重新计时
+实现在每次函数执行之前先清空上一次设置的定时器，原因是：如果执行间隔大于n秒，那么先前的定时任务一定已经执行完毕，当执行clearTimeout时其实并没有定时器可清除；否则定时器就会被清除，然后重新计时
+代码1234567891011121
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/09/04/understand-debounce-throttle/#more" rel="contents">
