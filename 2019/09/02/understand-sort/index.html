@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="冒泡排序原理实现12345678910111213141516171819function bubbleSort(arr) &amp;#123;  var len = arr.length;  if (len &amp;lt; 2) &amp;#123;    return arr;  &amp;#125;  for (var i = len - 1; i &amp;gt;= 2; i--) &amp;#123;    for (var j =">
+<meta name="description" content="冒泡排序原理待补充… 实现12345678910111213141516171819function bubbleSort(arr) &amp;#123;  var len = arr.length;  if (len &amp;lt; 2) &amp;#123;    return arr;  &amp;#125;  for (var i = len - 1; i &amp;gt;= 2; i--) &amp;#123;    for (va">
 <meta name="keywords" content="排序算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解几种常见的排序算法">
+<meta property="og:title" content="理解几种常见排序算法的实现">
 <meta property="og:url" content="http://blog.guoyunfeng.com/2019/09/02/understand-sort/index.html">
 <meta property="og:site_name" content="What should I know?">
-<meta property="og:description" content="冒泡排序原理实现12345678910111213141516171819function bubbleSort(arr) &amp;#123;  var len = arr.length;  if (len &amp;lt; 2) &amp;#123;    return arr;  &amp;#125;  for (var i = len - 1; i &amp;gt;= 2; i--) &amp;#123;    for (var j =">
+<meta property="og:description" content="冒泡排序原理待补充… 实现12345678910111213141516171819function bubbleSort(arr) &amp;#123;  var len = arr.length;  if (len &amp;lt; 2) &amp;#123;    return arr;  &amp;#125;  for (var i = len - 1; i &amp;gt;= 2; i--) &amp;#123;    for (va">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-05T07:22:33.844Z">
+<meta property="og:updated_time" content="2019-09-18T03:55:17.861Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解几种常见的排序算法">
-<meta name="twitter:description" content="冒泡排序原理实现12345678910111213141516171819function bubbleSort(arr) &amp;#123;  var len = arr.length;  if (len &amp;lt; 2) &amp;#123;    return arr;  &amp;#125;  for (var i = len - 1; i &amp;gt;= 2; i--) &amp;#123;    for (var j =">
+<meta name="twitter:title" content="理解几种常见排序算法的实现">
+<meta name="twitter:description" content="冒泡排序原理待补充… 实现12345678910111213141516171819function bubbleSort(arr) &amp;#123;  var len = arr.length;  if (len &amp;lt; 2) &amp;#123;    return arr;  &amp;#125;  for (var i = len - 1; i &amp;gt;= 2; i--) &amp;#123;    for (va">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>理解几种常见的排序算法 | What should I know?</title>
+  <title>理解几种常见排序算法的实现 | What should I know?</title>
   
 
 
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">理解几种常见的排序算法</h1>
+          <h1 class="post-title" itemprop="name headline">理解几种常见排序算法的实现</h1>
         
 
         <div class="post-meta">
@@ -358,9 +358,11 @@
       
 
       
-        <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = arr.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (len &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">2</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt;= i; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &gt; arr[j+<span class="number">1</span>]) &#123;</span><br><span class="line">        <span class="keyword">var</span> temp = arr[j+<span class="number">1</span>];</span><br><span class="line">        arr[j+<span class="number">1</span>] = arr[j];</span><br><span class="line">        arr[j] = temp</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>待补充…</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = arr.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (len &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = len - <span class="number">1</span>; i &gt;= <span class="number">2</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt;= i; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[j] &gt; arr[j+<span class="number">1</span>]) &#123;</span><br><span class="line">        <span class="keyword">var</span> temp = arr[j+<span class="number">1</span>];</span><br><span class="line">        arr[j+<span class="number">1</span>] = arr[j];</span><br><span class="line">        arr[j] = temp</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = arr.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (len &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> minIndex = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = i; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">        minIndex = j;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">var</span> temp = arr[i];</span><br><span class="line">      arr[i] = arr[minIndex];</span><br><span class="line">      arr[minIndex] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>待补充…</p>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = arr.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (len &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> minIndex = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = i; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">        minIndex = j;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">var</span> temp = arr[i];</span><br><span class="line">      arr[i] = arr[minIndex];</span><br><span class="line">      arr[minIndex] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>未完待续…</p>
 
@@ -393,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/23/understand-browser-cache/" rel="next" title="理解浏览器缓存">
-                <i class="fa fa-chevron-left"></i> 理解浏览器缓存
+              <a href="/2019/08/23/understand-browser-cache/" rel="next" title="理解浏览器缓存机制">
+                <i class="fa fa-chevron-left"></i> 理解浏览器缓存机制
               </a>
             
           </div>
@@ -403,8 +405,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/04/understand-cross-origin/" rel="prev" title="理解几种常见跨域方式原理">
-                理解几种常见跨域方式原理 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/04/understand-cross-origin/" rel="prev" title="理解几种解决跨域问题方法的原理">
+                理解几种解决跨域问题方法的原理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

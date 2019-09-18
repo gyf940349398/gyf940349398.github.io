@@ -82,14 +82,14 @@
 <meta name="description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型进行分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名下的页面只要将document.domain设置为一级域名，就可以访问保存在一级域名下的Cookie；另">
 <meta name="keywords" content="跨域">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解几种常见跨域方式原理">
+<meta property="og:title" content="理解几种解决跨域问题方法的原理">
 <meta property="og:url" content="http://blog.guoyunfeng.com/2019/09/04/understand-cross-origin/index.html">
 <meta property="og:site_name" content="What should I know?">
 <meta property="og:description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型进行分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名下的页面只要将document.domain设置为一级域名，就可以访问保存在一级域名下的Cookie；另">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-18T03:48:09.587Z">
+<meta property="og:updated_time" content="2019-09-18T06:29:01.863Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解几种常见跨域方式原理">
+<meta name="twitter:title" content="理解几种解决跨域问题方法的原理">
 <meta name="twitter:description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型进行分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名下的页面只要将document.domain设置为一级域名，就可以访问保存在一级域名下的Cookie；另">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>理解几种常见跨域方式原理 | What should I know?</title>
+  <title>理解几种解决跨域问题方法的原理 | What should I know?</title>
   
 
 
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">理解几种常见跨域方式原理</h1>
+          <h1 class="post-title" itemprop="name headline">理解几种解决跨域问题方法的原理</h1>
         
 
         <div class="post-meta">
@@ -394,6 +394,7 @@
 <li>加载无论哪一方的JS脚本都不会存在跨域限制</li>
 <li>服务端将数据放入前端已事先声明的回调函数中并返回，形如：<code>callback({name: &#39;abc&#39;})</code></li>
 <li>只支持Get请求，不支持Post请求</li>
+<li>兼容不支持CORS的老式浏览器</li>
 </ol>
 <h4 id="Websocket"><a href="#Websocket" class="headerlink" title="Websocket"></a>Websocket</h4><p>原理及特点：</p>
 <ol>
@@ -402,8 +403,9 @@
 <h4 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h4><p>原理及特点：</p>
 <ol>
 <li>XMLHttpRequest原生支持跨域请求，并且支持Post请求</li>
-<li>服务端通过响应头Access-Control-Allow-Origin来告知浏览器哪些域名下的页面可以使用服务器返回的资源</li>
-<li>如果跨域请求需要携带Cookie，那么Access-Control-Allow-Origin就不能设置为通配符（*），而必须设置为发起这个请求的那个页面的域名</li>
+<li>服务端通过响应头<code>Access-Control-Allow-Origin</code>来告知浏览器哪些域名下的页面可以使用服务器返回的资源</li>
+<li>如果想要在跨域请求中携带Cookie，一方面需要服务器同意（<code>Access-Control-Allow-Credentials: true</code>），另一方面也要指定请求携带（<code>xhr.withCredentials = true</code>），否则即使服务器同意，浏览器也不会发送Cookie</li>
+<li>如果跨域请求需要携带Cookie，那么<code>Access-Control-Allow-Origin</code>就不能设置为通配符（*），而必须设置为发起这个请求的那个Origin</li>
 </ol>
 <p>未完待续…</p>
 
@@ -436,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/02/understand-sort/" rel="next" title="理解几种常见的排序算法">
-                <i class="fa fa-chevron-left"></i> 理解几种常见的排序算法
+              <a href="/2019/09/02/understand-sort/" rel="next" title="理解几种常见排序算法的实现">
+                <i class="fa fa-chevron-left"></i> 理解几种常见排序算法的实现
               </a>
             
           </div>
@@ -446,8 +448,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/04/understand-web-attack/" rel="prev" title="理解几种常见Web攻击方式原理">
-                理解几种常见Web攻击方式原理 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/04/understand-web-attack/" rel="prev" title="理解几种常见Web攻击方式的原理">
+                理解几种常见Web攻击方式的原理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
