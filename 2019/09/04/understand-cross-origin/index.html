@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名页面只要将document.domain设置为主域名，就可以访问保存在主域名下的Cookie；另外将Cook">
+<meta name="description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型进行分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名下的页面只要将document.domain设置为一级域名，就可以访问保存在一级域名下的Cookie；另">
 <meta name="keywords" content="跨域">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解几种常见跨域方式原理">
 <meta property="og:url" content="http://blog.guoyunfeng.com/2019/09/04/understand-cross-origin/index.html">
 <meta property="og:site_name" content="What should I know?">
-<meta property="og:description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名页面只要将document.domain设置为主域名，就可以访问保存在主域名下的Cookie；另外将Cook">
+<meta property="og:description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型进行分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名下的页面只要将document.domain设置为一级域名，就可以访问保存在一级域名下的Cookie；另">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-16T11:54:21.534Z">
+<meta property="og:updated_time" content="2019-09-18T03:48:09.587Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解几种常见跨域方式原理">
-<meta name="twitter:description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名页面只要将document.domain设置为主域名，就可以访问保存在主域名下的Cookie；另外将Cook">
+<meta name="twitter:description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型进行分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名下的页面只要将document.domain设置为一级域名，就可以访问保存在一级域名下的Cookie；另">
 
 
 
@@ -365,32 +365,33 @@
 <li>窗口无法通信</li>
 <li>Ajax请求无法发送</li>
 </ol>
-<h2 id="有哪些解决跨域的方法？"><a href="#有哪些解决跨域的方法？" class="headerlink" title="有哪些解决跨域的方法？"></a>有哪些解决跨域的方法？</h2><p>按解决的问题类型分类</p>
+<h2 id="有哪些解决跨域的方法？"><a href="#有哪些解决跨域的方法？" class="headerlink" title="有哪些解决跨域的方法？"></a>有哪些解决跨域的方法？</h2><p>按解决的问题类型进行分类</p>
 <h3 id="解决Cookie无法获取的问题"><a href="#解决Cookie无法获取的问题" class="headerlink" title="解决Cookie无法获取的问题"></a>解决Cookie无法获取的问题</h3><h4 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h4><p>原理及特点：</p>
 <ol>
-<li>子域名页面只要将<code>document.domain</code>设置为主域名，就可以访问保存在主域名下的Cookie；另外将Cookie统一保存在主域名下，有利于子域名页面使用</li>
+<li>子域名下的页面只要将<code>document.domain</code>设置为一级域名，就可以访问保存在一级域名下的Cookie；另外，将Cookie统一保存在一级域名下，也有利于子域名页面访问和使用</li>
 </ol>
 <h3 id="解决Dom无法获取的问题"><a href="#解决Dom无法获取的问题" class="headerlink" title="解决Dom无法获取的问题"></a>解决Dom无法获取的问题</h3><h4 id="document-domain-1"><a href="#document-domain-1" class="headerlink" title="document.domain"></a>document.domain</h4><p>原理及特点：</p>
 <ol>
-<li>父窗口及iframe窗口（或window.open打开的窗口）将各自的<code>document.domain</code>设置为主域名，就可以获取到对方的Dom</li>
+<li>父窗口、iframe窗口（或window.open打开的窗口）只要将各自的<code>document.domain</code>设置为一级域名，就可以获取到对方的Dom</li>
 </ol>
 <h3 id="解决跨域窗口无法通信的问题"><a href="#解决跨域窗口无法通信的问题" class="headerlink" title="解决跨域窗口无法通信的问题"></a>解决跨域窗口无法通信的问题</h3><h4 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h4><p>原理及特点：</p>
 <ol>
-<li>一个窗口只要设置了<code>window.name</code>，即便这个窗口加载了另一个页面，<code>window.name</code>依旧保存之前的值，而并没有被情况</li>
-<li><code>window.name</code>存在跨域限制</li>
+<li>一个窗口只要设置了<code>window.name</code>，即便这个窗口后来又加载了另一个页面，<code>window.name</code>会依然保存之前的值，而不是被情况</li>
+<li><code>window.name</code>同样存在跨域限制，那么只有窗口之间不存在跨域就能获取到对方的<code>window.name</code>，所以我们可以这么做：<br>iframe首先加载一个与父窗口跨域的页面，在这个页面中给<code>window.name</code>赋值，然后iframe加载另一个与父窗口不存在跨域的页面，这时就可以那到<code>window.name</code>了，从而达到通信的目的</li>
+<li><code>window.name</code>容量大，可以保存较长的字符串</li>
 </ol>
 <h4 id="window-postMessage"><a href="#window-postMessage" class="headerlink" title="window.postMessage"></a>window.postMessage</h4><p>原理及特点：</p>
 <ol>
-<li>H5新增的Api，用于窗口间通信（iframe窗口、window.open打开的窗口）</li>
+<li>H5新增的Api，用于窗口之间通信（父窗口与iframe窗口，或window.open打开的窗口）</li>
 </ol>
 <h4 id="location-hash-amp-onhashchange"><a href="#location-hash-amp-onhashchange" class="headerlink" title="location.hash &amp; onhashchange"></a>location.hash &amp; onhashchange</h4><p>原理及特点：</p>
 <ol>
-<li>窗口Url的hash发生改变时，页面并不会刷新</li>
-<li>窗口Url的hash发生改变时，onhashchange事件回调被执行，并且参数中含有新的hash</li>
+<li>窗口Url的hash发生改变时，页面不会刷新</li>
+<li>窗口Url的hash发生改变时，onhashchange事件回调被执行，并且参数中会包含新的hash值</li>
 </ol>
 <h3 id="解决Ajax无法发送的问题"><a href="#解决Ajax无法发送的问题" class="headerlink" title="解决Ajax无法发送的问题"></a>解决Ajax无法发送的问题</h3><h4 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h4><p>原理及特点：</p>
 <ol>
-<li>加载无论哪一方的JS脚本都不存在跨域限制</li>
+<li>加载无论哪一方的JS脚本都不会存在跨域限制</li>
 <li>服务端将数据放入前端已事先声明的回调函数中并返回，形如：<code>callback({name: &#39;abc&#39;})</code></li>
 <li>只支持Get请求，不支持Post请求</li>
 </ol>
@@ -400,9 +401,9 @@
 </ol>
 <h4 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h4><p>原理及特点：</p>
 <ol>
-<li>XMLHttpRequest原生支持跨域请求</li>
-<li>服务端通过响应头Access-Control-Allow-Origin告知浏览器哪些域名下的页面可以访问它</li>
-<li>如果请求需要携带Cookie，那么Access-Control-Allow-Origin就不能设置为通配符，而必须是发起请求的那个页面的域名</li>
+<li>XMLHttpRequest原生支持跨域请求，并且支持Post请求</li>
+<li>服务端通过响应头Access-Control-Allow-Origin来告知浏览器哪些域名下的页面可以使用服务器返回的资源</li>
+<li>如果跨域请求需要携带Cookie，那么Access-Control-Allow-Origin就不能设置为通配符（*），而必须设置为发起这个请求的那个页面的域名</li>
 </ol>
 <p>未完待续…</p>
 
