@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="What should I know?">
 <meta property="og:description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型进行分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名下的页面只要将document.domain设置为一级域名，就可以访问保存在一级域名下的Cookie；另">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-18T06:29:01.863Z">
+<meta property="og:updated_time" content="2019-09-19T11:49:45.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解几种解决跨域问题方法的原理">
 <meta name="twitter:description" content="跨域的定义？两个url，协议、域名、端口，只要任意一个不同，就属于跨域 跨域有哪些限制？ Cookie无法读取 Dom无法获取 窗口无法通信 Ajax请求无法发送  有哪些解决跨域的方法？按解决的问题类型进行分类 解决Cookie无法获取的问题document.domain原理及特点：  子域名下的页面只要将document.domain设置为一级域名，就可以访问保存在一级域名下的Cookie；另">
@@ -376,9 +376,10 @@
 </ol>
 <h3 id="解决跨域窗口无法通信的问题"><a href="#解决跨域窗口无法通信的问题" class="headerlink" title="解决跨域窗口无法通信的问题"></a>解决跨域窗口无法通信的问题</h3><h4 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h4><p>原理及特点：</p>
 <ol>
-<li>一个窗口只要设置了<code>window.name</code>，即便这个窗口后来又加载了另一个页面，<code>window.name</code>会依然保存之前的值，而不是被情况</li>
-<li><code>window.name</code>同样存在跨域限制，那么只有窗口之间不存在跨域就能获取到对方的<code>window.name</code>，所以我们可以这么做：<br>iframe首先加载一个与父窗口跨域的页面，在这个页面中给<code>window.name</code>赋值，然后iframe加载另一个与父窗口不存在跨域的页面，这时就可以那到<code>window.name</code>了，从而达到通信的目的</li>
+<li><code>window.name</code>不存在跨域限制，也就是说窗口之间可以访问这个属性</li>
+<li>如果在一个窗口内设置了<code>window.name</code>，只要窗口不关闭，即使加载了另一个页面，先前<code>window.name</code>设置的值依然存在</li>
 <li><code>window.name</code>容量大，可以保存较长的字符串</li>
+<li>需要监听<code>window.name</code>的变化，因为只有这样页面才知道有新的数据传递过来，但这样做会很耗性能</li>
 </ol>
 <h4 id="window-postMessage"><a href="#window-postMessage" class="headerlink" title="window.postMessage"></a>window.postMessage</h4><p>原理及特点：</p>
 <ol>
