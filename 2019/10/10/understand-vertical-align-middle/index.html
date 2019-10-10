@@ -82,16 +82,16 @@
 <meta name="description" content="前言总所周知，“Css如何实现元素垂直居中？”已经是一个老生常谈的问题了，这个问题目前已经有了许多解决方案，这些方案也都有各自适用的场景以及优缺点，大致如下：  flex布局 grid布局 table布局 line-height搭配height position搭配margin position搭配transform …  那么今天我们就来理解其中一种有效但不常被使用的方案的原理，它就是：伪元素:">
 <meta name="keywords" content="垂直居中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解伪类搭配vertical-align:middle实现垂直居中的原理">
+<meta property="og:title" content="理解:before伪类搭配vertical-align:middle实现垂直居中的原理">
 <meta property="og:url" content="http://blog.guoyunfeng.com/2019/10/10/understand-vertical-align-middle/index.html">
 <meta property="og:site_name" content="锅的前端笔记">
 <meta property="og:description" content="前言总所周知，“Css如何实现元素垂直居中？”已经是一个老生常谈的问题了，这个问题目前已经有了许多解决方案，这些方案也都有各自适用的场景以及优缺点，大致如下：  flex布局 grid布局 table布局 line-height搭配height position搭配margin position搭配transform …  那么今天我们就来理解其中一种有效但不常被使用的方案的原理，它就是：伪元素:">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://blog.guoyunfeng.com/uploads/css/1.png">
 <meta property="og:image" content="http://blog.guoyunfeng.com/uploads/css/2.png">
-<meta property="og:updated_time" content="2019-10-10T13:36:13.908Z">
+<meta property="og:updated_time" content="2019-10-10T13:40:31.378Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解伪类搭配vertical-align:middle实现垂直居中的原理">
+<meta name="twitter:title" content="理解:before伪类搭配vertical-align:middle实现垂直居中的原理">
 <meta name="twitter:description" content="前言总所周知，“Css如何实现元素垂直居中？”已经是一个老生常谈的问题了，这个问题目前已经有了许多解决方案，这些方案也都有各自适用的场景以及优缺点，大致如下：  flex布局 grid布局 table布局 line-height搭配height position搭配margin position搭配transform …  那么今天我们就来理解其中一种有效但不常被使用的方案的原理，它就是：伪元素:">
 <meta name="twitter:image" content="http://blog.guoyunfeng.com/uploads/css/1.png">
 
@@ -129,7 +129,7 @@
 
 
 
-  <title>理解伪类搭配vertical-align:middle实现垂直居中的原理 | 锅的前端笔记</title>
+  <title>理解:before伪类搭配vertical-align:middle实现垂直居中的原理 | 锅的前端笔记</title>
   
 
 
@@ -273,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">理解伪类搭配vertical-align:middle实现垂直居中的原理</h1>
+          <h1 class="post-title" itemprop="name headline">理解:before伪类搭配vertical-align:middle实现垂直居中的原理</h1>
         
 
         <div class="post-meta">
