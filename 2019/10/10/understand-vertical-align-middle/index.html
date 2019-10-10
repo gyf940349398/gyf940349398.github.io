@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="垂直居中,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言总所周知，“Css如何实现元素垂直居中？”已经是一个老生常谈的问题了，这个问题目前已经有了许多解决方案，这些方案也都有各自适用的场景以及优缺点，大致如下：  flex布局 grid布局 table布局 line-height搭配height position搭配margin position搭配transform …  那么今天我们就来理解其中一种有效但不常被使用的方案的原理，它就是：伪元素:">
+<meta name="keywords" content="垂直居中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解伪类搭配vertical-align:middle实现垂直居中的原理">
+<meta property="og:url" content="http://blog.guoyunfeng.com/2019/10/10/understand-vertical-align-middle/index.html">
+<meta property="og:site_name" content="锅的前端笔记">
+<meta property="og:description" content="前言总所周知，“Css如何实现元素垂直居中？”已经是一个老生常谈的问题了，这个问题目前已经有了许多解决方案，这些方案也都有各自适用的场景以及优缺点，大致如下：  flex布局 grid布局 table布局 line-height搭配height position搭配margin position搭配transform …  那么今天我们就来理解其中一种有效但不常被使用的方案的原理，它就是：伪元素:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.guoyunfeng.com/uploads/css/1.png">
+<meta property="og:image" content="http://blog.guoyunfeng.com/uploads/css/2.png">
+<meta property="og:updated_time" content="2019-10-10T13:36:13.908Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解伪类搭配vertical-align:middle实现垂直居中的原理">
+<meta name="twitter:description" content="前言总所周知，“Css如何实现元素垂直居中？”已经是一个老生常谈的问题了，这个问题目前已经有了许多解决方案，这些方案也都有各自适用的场景以及优缺点，大致如下：  flex布局 grid布局 table布局 line-height搭配height position搭配margin position搭配transform …  那么今天我们就来理解其中一种有效但不常被使用的方案的原理，它就是：伪元素:">
+<meta name="twitter:image" content="http://blog.guoyunfeng.com/uploads/css/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.guoyunfeng.com/2019/10/10/understand-vertical-align-middle/">
+
+
+
+
+
+  <title>理解伪类搭配vertical-align:middle实现垂直居中的原理 | 锅的前端笔记</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?955d9e611da21e875fdad55f951b0e67";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">锅的前端笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">多动脑，勤思考</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.guoyunfeng.com/2019/10/10/understand-vertical-align-middle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Guo YunFeng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="锅的前端笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">理解伪类搭配vertical-align:middle实现垂直居中的原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-10T19:22:25+08:00">
+                2019-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Css/" itemprop="url" rel="index">
+                    <span itemprop="name">Css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2019/10/10/understand-vertical-align-middle/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2019/10/10/understand-vertical-align-middle/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </span></div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>总所周知，“Css如何实现元素垂直居中？”已经是一个老生常谈的问题了，这个问题目前已经有了许多解决方案，这些方案也都有各自适用的场景以及优缺点，大致如下：</p>
+<ul>
+<li>flex布局</li>
+<li>grid布局</li>
+<li>table布局</li>
+<li>line-height搭配height</li>
+<li>position搭配margin</li>
+<li>position搭配transform</li>
+<li>…</li>
+</ul>
+<p>那么今天我们就来理解其中一种有效但不常被使用的方案的原理，它就是：<strong>伪元素<code>:before</code>搭配<code>vertical-align:middle</code>实现元素垂直居中</strong>，先来看一下具体的代码实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.parent</span> &#123;</span></span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    font-size: 0;</span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#80848f</span>;</span></span><br><span class="line">    text-align: center;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">  <span class="selector-class">.parent</span><span class="selector-pseudo">:before</span> &#123;</span></span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 20px;</span><br><span class="line">    height: 100%;</span><br><span class="line">    content: '';</span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#ff9900</span>;</span></span><br><span class="line">    vertical-align: middle;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">  <span class="selector-class">.child</span> &#123;</span></span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#19be6b</span>;</span></span><br><span class="line">    vertical-align: middle;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码运行结果是这样的：<br><img src="/uploads/css/1.png" alt="垂直居中"></p>
+<p>相信代码大家已经很熟悉了，但是你真正理解其中的原理吗？下面我们就看一下它是如何怎样一步步实现垂直居中的</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先我们要知道一个关键知识点，那就是：<strong>父元素基线（baseline）的位置是可以改变的，它不是固定的</strong>，记住这一点很重要</p>
+<p>接着，我们精简一下代码，去掉关键部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line"><span class="css">  <span class="selector-class">.parent</span> &#123;</span></span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line"><span class="css">    <span class="comment">/* font-size: 0; */</span></span></span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#80848f</span>;</span></span><br><span class="line">    text-align: center;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">  <span class="selector-class">.parent</span><span class="selector-pseudo">:before</span> &#123;</span></span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 20px;</span><br><span class="line">    height: 100%;</span><br><span class="line">    content: '';</span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#ff9900</span>;</span></span><br><span class="line"><span class="css">    <span class="comment">/* vertical-align: middle; */</span></span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">  <span class="selector-class">.child</span> &#123;</span></span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#19be6b</span>;</span></span><br><span class="line"><span class="css">    <span class="comment">/* vertical-align: middle; */</span></span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span>&gt;</span>child<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们将<code>font-size:0</code>和<code>vertical-align:middle</code>注释后，运行结果如下：</p>
+<p><img src="/uploads/css/2.png" alt="垂直居中"></p>
+<p>从图中不难看出，对于<code>:before</code>伪元素（以下简称伪元素）来说，加与不加<code>vertical-align:middle</code>，结果都是一样的，在垂直方向它始终会占满父元素；但对于<code>.child</code>元素情况就不同了，它在垂直方向的位置发生了改变，那么这是为什么呢？</p>
+<p>其实伪元素在此处的作用就是<strong>为了改变（或者叫重新定义）父元素baseline的位置</strong>，我们来回顾一下<code>vertical-align:middle</code>在MDN文档中的定义</p>
+<blockquote>
+<p>middle: 使元素的中部与父元素的基线加上父元素x-height的一半对齐</p>
+</blockquote>
+<p>那么，对比我们的示例：</p>
+<ul>
+<li>伪元素的中部就是它垂直方向的中点，这不难理解</li>
+<li>父元素的基线我们暂且不管它在哪里，我们只要记住它是可以改变的就足够了</li>
+<li>x-height的一半，因为我们在父元素中将font-size置为0，所以x-height（小写x字母的高度）的一半也是0，即没有高度</li>
+</ul>
+<p>这样一下，就相当于伪元素的中点只要与父元素的基线对齐就可以了，因为x-height是0，所以加与不加无所谓；再加上Css中元素默认是左上方对齐的，对于这个限制，也就是说当伪元素加上<code>vertical-align:middle</code>后，默认情况下它是不会超出父元素的范围显示的，那么这时伪元素高度已确定：父元素高度的100%，中点也已确定</p>
+<p>接下来伪元素就会对父元素说：我垂直方向的中点已经确定了，变是不可能变的，这辈子都不可能变，但我的中点想和你的基线对齐，你自己看着办吧</p>
+<p>然后父元素妥协了，将它自身的基线移动到与伪元素中点水平对齐的位置，到此父元素基线的位置也已确定，近似其高度的一半</p>
+<p>最后.child元素添加了自己的<code>vertical-align:middle</code>，按照<strong>middle: 使元素的中部与父元素的基线加上父元素x-height的一半对齐</strong>这句定义，.child元素的font-size由于继承关系也是0，所以它的中点也就自然而然与早已确定的父元素基线对齐，从而实现垂直居中，到此结束</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>其实该种垂直居中方式的原理主要有以下几个要点：</p>
+<ul>
+<li>Css中元素默认是左上方对齐的</li>
+<li>伪元素高度与父元素保持统一</li>
+<li>父元素将font-size置为0，进而x-height也被置为0</li>
+<li>父元素基线的位置可改变</li>
+</ul>
+<p>只要理解了原理，我们就不用死记硬背代码，也不会忘记如何实现；文中如有错误，欢迎指正~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/垂直居中/" rel="tag"># 垂直居中</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/20/understand-cookie/" rel="next" title="understand-cookie">
+                <i class="fa fa-chevron-left"></i> understand-cookie
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Guo YunFeng">
+            
+              <p class="site-author-name" itemprop="name">Guo YunFeng</p>
+              <p class="site-description motion-element" itemprop="description">一个有点胖的前端攻城狮</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gyf940349398" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:940349398@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Guo YunFeng</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytjzjYB7';
+      var conf = '1b80da1050b5fa7038c60862e2fd7bf3';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
